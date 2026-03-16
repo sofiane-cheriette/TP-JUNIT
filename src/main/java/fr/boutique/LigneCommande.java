@@ -1,3 +1,5 @@
+package fr.boutique;
+
 public record LigneCommande(Article article, int quantite) {
     public LigneCommande {
         if (article == null) {

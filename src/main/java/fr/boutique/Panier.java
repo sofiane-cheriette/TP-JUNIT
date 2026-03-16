@@ -1,3 +1,5 @@
+package fr.boutique;
+
 import java.util.ArrayList;
 import java.util.List;
 

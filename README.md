@@ -23,3 +23,7 @@ Avancement
 Étape 1 — Structure Maven + classes métier
 - pom.xml créé avec JUnit 5
 - classes métier ajoutées selon l'énoncé (sans tests)
+
+Étape 1 bis — Alignement avec l'organisation attendue
+- classes déplacées dans src/main/java/fr/boutique 
+- package fr.boutique ajouté
