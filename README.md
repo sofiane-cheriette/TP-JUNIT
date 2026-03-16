@@ -67,3 +67,45 @@ Avancement
 - dépendance junit-platform-suite ajoutée au pom.xml
 - classe SuiteBoutique créée avec @Suite et @SelectClasses
 - regroupe ArticleTest, PanierTest, PanierReductionTest, ServiceCommandeTest
+
+Tests exécutés (mvn test)
+
+ArticleTest
+- creerArticleValideDoitFonctionner
+- modifierPrixDoitMettreAJourLePrix
+- referenceNulleDoitLeverException
+- nomVideDoitLeverException
+- prixNegatifALaCreationDoitLeverException
+- setPrixNegatifDoitLeverException
+
+PanierTest
+- ajouterArticleDoitAugmenterLeNombreDeArticles
+- calculerTotalDoitRetournerLaSommeDesSousTotaux
+- panierVideDoitRetournerEstVideEgalTrue
+- panierAvecArticlesNeDoitPasEtreVide
+- articleNulDoitLeverException
+- quantiteNulleDoitLeverException
+- quantiteNegativeDoitLeverException
+- codeReductionVideDoitLeverException
+- codeReductionNulDoitLeverException
+- quantiteUneDoitEtreAcceptee
+- articleGratuitDoitEtreAccepte
+- prixEleveDoitFonctionner
+- panierAvecUnSeulArticleDoitFonctionner
+- plusieursArticlesDifferentsDansPanier
+
+PanierReductionTest
+- calculerTotalAvecCodeReductionDoitAppliquerLaBonneRemise [sans code → 100.0]
+- calculerTotalAvecCodeReductionDoitAppliquerLaBonneRemise [REDUC10 → 90.0]
+- calculerTotalAvecCodeReductionDoitAppliquerLaBonneRemise [REDUC20 → 80.0]
+- calculerTotalAvecPlusieursArticlesDoitAppliquerLaBonneRemise [sans code → 120.0]
+- calculerTotalAvecPlusieursArticlesDoitAppliquerLaBonneRemise [REDUC10 → 108.0]
+- calculerTotalAvecPlusieursArticlesDoitAppliquerLaBonneRemise [REDUC20 → 96.0]
+
+ServiceCommandeTest
+- commandeValideDoitRetournerUneCommande
+- panierVideDoitLeverIllegalStateException
+- identifiantClientNulDoitLeverException
+- identifiantClientVideDoitLeverException
+- stockInsuffisantDoitLeverStockInsuffisantException
+- totalCommandeDoitCorrespondreAuTotalDuPanier
