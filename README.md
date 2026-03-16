@@ -15,6 +15,15 @@ Vous travaillez sur une plateforme de boutique en ligne contenant trois classes 
     • Article — article du catalogue avec référence, nom et prix
     • ServiceCommande — service de validation et création de commandes
 
+
+    Pour lancer tout les test, on peut faire :
+
+    mvn test
+
+    ou bien on peut lancer qu'une classe à la fois comme par exemple :
+
+    mvn -Dtest=PanierTest test
+
 Avancement
 Étape 0 — Initialisation GitHub
 - Dépôt local relié au dépôt distant
@@ -35,3 +44,7 @@ Avancement
 Étape 3 — Tests sur la classe Article
 - classe ArticleTest créée
 - cas valides et invalides de base ajoutés
+
+Étape 4 — Cas invalides sur Panier
+- exceptions sur article null et quantités invalides ajoutées
+- exceptions sur codes de réduction invalides ajoutées

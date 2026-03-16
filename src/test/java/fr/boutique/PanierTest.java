@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PanierTest {
@@ -59,5 +60,57 @@ class PanierTest {
 
         // Affirmer
         assertFalse(panier.estVide());
+    }
+
+    @Test
+    void articleNulDoitLeverException() {
+        // Arranger
+        Panier panier = new Panier();
+
+        // Agir / Affirmer
+        assertThrows(IllegalArgumentException.class,
+                () -> panier.ajouterArticle(null, 1));
+    }
+
+    @Test
+    void quantiteNulleDoitLeverException() {
+        // Arranger
+        Panier panier = new Panier();
+        Article article = new Article("REF-001", "Stylo", 1.50);
+
+        // Agir / Affirmer
+        assertThrows(IllegalArgumentException.class,
+                () -> panier.ajouterArticle(article, 0));
+    }
+
+    @Test
+    void quantiteNegativeDoitLeverException() {
+        // Arranger
+        Panier panier = new Panier();
+        Article article = new Article("REF-001", "Stylo", 1.50);
+
+        // Agir / Affirmer
+        assertThrows(IllegalArgumentException.class,
+                () -> panier.ajouterArticle(article, -3));
+    }
+
+    @Test
+    void codeReductionVideDoitLeverException() {
+        // Arranger
+        Panier panier = new Panier();
+
+        // Agir / Affirmer
+        assertThrows(IllegalArgumentException.class,
+                () -> panier.appliquerCodeReduction(""));
+    }
+
+    @Test
+    void codeReductionNulDoitLeverException() {
+        // Arranger
+        Panier panier = new Panier();
+
+        // Agir / Affirmer
+        assertThrows(IllegalArgumentException.class,
+                () -> panier.appliquerCodeReduction(null));
     }
 }
