@@ -22,7 +22,7 @@ Vous travaillez sur une plateforme de boutique en ligne contenant trois classes 
 
     ou bien on peut lancer qu'une classe à la fois comme par exemple :
 
-    mvn -Dtest=PanierTest test
+    mvn -Dtest=PanierTest test          ou          mvn -Dtest=ArticleTest test
 
 Avancement
 Étape 0 — Initialisation GitHub
@@ -48,3 +48,8 @@ Avancement
 Étape 4 — Cas invalides sur Panier
 - exceptions sur article null et quantités invalides ajoutées
 - exceptions sur codes de réduction invalides ajoutées
+
+Étape 5 — Cas limites sur Panier
+- quantité minimale acceptée testée
+- article gratuit et prix élevé testés
+- panier avec un seul article et plusieurs articles différents testés
