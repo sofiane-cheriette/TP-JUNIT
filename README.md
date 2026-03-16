@@ -1,12 +1,25 @@
-# TP JUnit
+TP — Tests unitaires avec JUnit 5
+Application Boutique en ligne · Panier & ServiceCommande · JUnit 5
 
-## Regle de travail
-- Avancer par petites etapes.
-- Faire un commit clair a chaque etape.
-- Faire un push juste apres chaque commit.
+Objectifs du TP
+À la fin du TP, vous devez être capables de :
+    • écrire des tests unitaires avec JUnit 5
+    • structurer un test avec AAA (Arranger · Agir · Affirmer)
+    • identifier des cas normaux, limites et invalides
+    • utiliser des tests paramétrés avec @TestParametre
+    • regrouper des tests dans une suite de tests
 
-## Journal
-### Etape 0 - Initialisation du depot
-- Depot GitHub relie.
-- Arborescence de base creee.
-- Pret pour commencer le TP a la lettre.
+Contexte
+Vous travaillez sur une plateforme de boutique en ligne contenant trois classes métier :
+    • Panier — panier d'achat avec articles et codes de réduction
+    • Article — article du catalogue avec référence, nom et prix
+    • ServiceCommande — service de validation et création de commandes
+
+Avancement
+Étape 0 — Initialisation GitHub
+- Dépôt local relié au dépôt distant
+- Premier commit et push effectués
+
+Étape 1 — Structure Maven + classes métier
+- pom.xml créé avec JUnit 5
+- classes métier ajoutées selon l'énoncé (sans tests)
