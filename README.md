@@ -58,3 +58,7 @@ Avancement
 - classe ServiceCommandeTest créée
 - commande valide, panier vide, client invalide testés
 - stock insuffisant et total de commande testés
+
+Étape 7 — Tests paramétrés — codes de réduction
+- classe PanierReductionTest créée
+- @ParameterizedTest + @CsvSource : sans code, REDUC10, REDUC20 testés
