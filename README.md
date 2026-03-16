@@ -27,3 +27,7 @@ Avancement
 Étape 1 bis — Alignement avec l'organisation attendue
 - classes déplacées dans src/main/java/fr/boutique 
 - package fr.boutique ajouté
+
+Étape 2 — Premiers tests unitaires sur Panier
+- classe PanierTest créée
+- 4 tests valides de base ajoutés
