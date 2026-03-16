@@ -62,3 +62,8 @@ Avancement
 Étape 7 — Tests paramétrés — codes de réduction
 - classe PanierReductionTest créée
 - @ParameterizedTest + @CsvSource : sans code, REDUC10, REDUC20 testés
+
+Étape 8 — Suite de tests
+- dépendance junit-platform-suite ajoutée au pom.xml
+- classe SuiteBoutique créée avec @Suite et @SelectClasses
+- regroupe ArticleTest, PanierTest, PanierReductionTest, ServiceCommandeTest
