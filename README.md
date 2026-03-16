@@ -31,3 +31,7 @@ Avancement
 Étape 2 — Premiers tests unitaires sur Panier
 - classe PanierTest créée
 - 4 tests valides de base ajoutés
+
+Étape 3 — Tests sur la classe Article
+- classe ArticleTest créée
+- cas valides et invalides de base ajoutés
