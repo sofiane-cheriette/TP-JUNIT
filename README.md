@@ -53,3 +53,8 @@ Avancement
 - quantité minimale acceptée testée
 - article gratuit et prix élevé testés
 - panier avec un seul article et plusieurs articles différents testés
+
+Étape 6 — Tests sur ServiceCommande
+- classe ServiceCommandeTest créée
+- commande valide, panier vide, client invalide testés
+- stock insuffisant et total de commande testés
