@@ -109,3 +109,11 @@ ServiceCommandeTest
 - identifiantClientVideDoitLeverException
 - stockInsuffisantDoitLeverStockInsuffisantException
 - totalCommandeDoitCorrespondreAuTotalDuPanier
+
+il y a aussi : 
+
+docker images | findstr boutique
+
+docker run --rm -v "${PWD}:/project" -w /project maven:3.9-eclipse-temurin-17 mvn test
+
+mvn test
