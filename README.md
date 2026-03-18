@@ -511,3 +511,51 @@ Checklist étape 8 :
 - [x] `kubectl apply -f k8s/` -> tout recréé en une commande
 - [x] `kubectl get all` -> 3 Pods Running + 1 Service + 1 Deployment
 - [x] `minikube service boutique-svc --url` -> application accessible
+
+### Étape 9 — Bonus (aller plus loin)
+
+Objectif : explorer des fonctionnalités avancées Kubernetes (santé, autoscaling, CI/CD).
+
+#### 9.1 — Liveness et Readiness probes
+
+Actions effectuées :
+- ajout de `livenessProbe` et `readinessProbe` dans `k8s/deployment.yml`
+- application du deployment et vérification via `kubectl describe deployment boutique`
+
+Résultat observé :
+- rollout réussi
+- probes visibles et actives :
+    - liveness HTTP sur `/` port `8080`
+    - readiness HTTP sur `/` port `8080`
+
+Note : l'énoncé proposait des endpoints `/actuator/...`; l'application TP expose actuellement `/`, donc les probes ont été adaptées pour rester fonctionnelles.
+
+#### 9.2 — Autoscaling horizontal (HPA)
+
+Commande exécutée :
+
+```bash
+kubectl autoscale deployment boutique --min=2 --max=8 --cpu-percent=70
+kubectl get hpa
+```
+
+Résultat observé :
+- HPA `boutique` créé
+- bornes min/max correctes (`2` / `8`)
+- métrique CPU affichée en `<unknown>/70%` (normal si les métriques CPU ne sont pas encore disponibles immédiatement)
+
+#### 9.3 — Intégration CI/CD
+
+Action effectuée :
+- ajout d'un job `deploy` dans `.github/workflows/ci.yml` après `build-push`
+
+Le job :
+- checkout du repo
+- setup `kubectl`
+- lecture du secret GitHub `KUBECONFIG`
+- `kubectl apply -f k8s/` avec kubeconfig injecté
+
+Checklist étape 9 :
+- [x] Probes de santé ajoutées au Deployment
+- [x] HPA configuré (`min=2`, `max=8`, `cpu=70%`)
+- [x] Job `deploy` ajouté dans le pipeline CI/CD

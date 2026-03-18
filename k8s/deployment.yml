@@ -22,6 +22,20 @@ spec:
           command: ["java", "-cp", "app.jar", "fr.boutique.Application"]
           ports:
             - containerPort: 8080
+          # L'application expose actuellement la route '/';
+          # on utilise ce endpoint pour liveness/readiness.
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
           envFrom:
             - configMapRef:
                 name: boutique-config
