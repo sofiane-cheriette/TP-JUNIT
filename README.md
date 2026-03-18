@@ -117,3 +117,48 @@ docker images | findstr boutique
 docker run --rm -v "${PWD}:/project" -w /project maven:3.9-eclipse-temurin-17 mvn test
 
 mvn test
+
+## 8 Récapitulatif — Checklist finale
+
+Vérifiez que chaque étape est validée avant de rendre le TP.
+
+### Dockerfile
+- [x] Dockerfile créé à la racine avec build multi-stage
+- [x] .dockerignore créé (target/, .git, .env…)
+- [x] docker build -t boutique:local . → BUILD SUCCESS
+- [x] docker run -d -p 8080:8080 boutique:local → conteneur démarre
+
+### pom.xml
+- [x] junit-jupiter présent dans les dépendances
+- [x] maven-surefire-plugin présent dans les plugins
+- [x] mvn test en local → BUILD SUCCESS, tous les tests verts
+
+### GitHub Actions — ci.yml
+- [x] Dossier .github/workflows/ créé
+- [x] Fichier ci.yml présent avec jobs test et build-push
+- [x] git push → pipeline déclenché automatiquement
+- [x] Job test → Tests run: N, Failures: 0
+- [x] Job build-push → image poussée sur ghcr.io
+- [x] GitHub → Packages → image boutique visible
+
+### Bonus — release.yml
+- [x] Fichier release.yml créé
+- [x] git tag v1.0.0 + git push origin v1.0.0
+- [x] Image ghcr.io/user/boutique:v1.0.0 publiée
+
+## Commandes
+
+```bash
+mvn test
+mvn -Dtest=PanierTest test
+mvn -Dtest=ArticleTest test
+
+docker build -t boutique:local .
+docker run -d -p 8080:8080 boutique:local
+docker images | findstr boutique
+docker run --rm -v "${PWD}:/project" -w /project maven:3.9-eclipse-temurin-17 mvn test
+
+git push
+git tag v1.0.0
+git push origin v1.0.0
+```
