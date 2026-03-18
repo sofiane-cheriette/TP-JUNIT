@@ -325,3 +325,41 @@ Checklist étape 4 :
 - [x] `kubectl get service boutique-svc` -> le Service existe
 - [x] `minikube service boutique-svc --url` -> URL affichée
 - [x] Accéder à l'URL -> réponse de l'application
+
+### Étape 5 — Observer le self-healing
+
+Objectif : vérifier que Kubernetes recrée automatiquement un Pod supprimé pour conserver l'état désiré (`replicas: 3`).
+
+Processus observé en direct :
+
+```bash
+# Terminal 1
+kubectl get pods -l app=boutique -w
+
+# Terminal 2
+kubectl get pods -l app=boutique
+kubectl delete pod <nom-du-pod>
+```
+
+Suppression effectuée :
+- Pod supprimé : `boutique-87fcc88b8-5fd8m`
+
+Transitions vues avec `kubectl get pods -w` :
+- `Terminating` pour le Pod supprimé
+- apparition d'un nouveau Pod `boutique-87fcc88b8-hzgvl`
+- passage `Pending` -> `ContainerCreating` -> `Running`
+
+Continuité de service pendant la panne :
+- URL testée : `http://127.0.0.1:52270`
+- 6 requêtes consécutives pendant la reconstruction :
+    - `STATUS=200`
+    - `BODY=TP-JUNIT running`
+
+État final :
+- 3 Pods à nouveau en `Running` (dont un Pod récemment créé, plus jeune)
+
+Checklist étape 5 :
+- [x] Lancer `kubectl get pods -w` dans un terminal
+- [x] Supprimer un Pod avec `kubectl delete pod <nom>`
+- [x] Observer le nouveau Pod créé automatiquement en < 10 secondes
+- [x] Confirmer que l'application répond toujours pendant la panne
