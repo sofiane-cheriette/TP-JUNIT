@@ -406,3 +406,67 @@ Checklist étape 6 :
 - [x] `kubectl scale deployment boutique --replicas=5` -> 5 Pods Running
 - [x] `kubectl scale deployment boutique --replicas=2` -> 2 Pods Running
 - [x] Modifier `replicas` dans `deployment.yml` -> `kubectl apply` -> 4 Pods Running
+
+### Étape 7 — Rolling update et rollback
+
+Objectif : mettre à jour l'image sans coupure, puis revenir rapidement à la version précédente en cas de problème.
+
+#### 7.1 — Simulation d'une nouvelle version
+
+Actions effectuées :
+- build local d'une image `ghcr.io/sofiane-cheriette/tp-junit:v2.0.0` dans Minikube
+- mise à jour temporaire de l'image dans le Deployment
+- application du manifest et suivi du rollout
+
+Commandes exécutées :
+
+```bash
+kubectl apply -f k8s/deployment.yml
+kubectl rollout status deployment/boutique
+kubectl get pods -l app=boutique -w
+```
+
+Observation du rolling update :
+- anciens Pods en `Terminating`
+- nouveaux Pods en `Pending` puis `ContainerCreating`
+- nouveaux Pods en `Running`
+- déploiement terminé avec succès (`successfully rolled out`)
+
+#### 7.2 — Historique des déploiements
+
+Commandes exécutées :
+
+```bash
+kubectl rollout history deployment/boutique
+kubectl rollout history deployment/boutique --revision=5
+```
+
+Résultat observé :
+- historique avec plusieurs révisions (au moins 2, condition du TP validée)
+- détail d'une révision consulté avec succès
+
+#### 7.3 — Rollback
+
+Commandes exécutées :
+
+```bash
+kubectl rollout undo deployment/boutique
+kubectl rollout status deployment/boutique
+kubectl describe deployment boutique | findstr /I "Image:"
+```
+
+Résultat observé :
+- rollback effectué avec succès
+- retour confirmé sur l'image précédente : `ghcr.io/sofiane-cheriette/tp-junit:latest`
+- état final stable : 4 Pods `Running`
+
+Checklist étape 7 :
+- [x] Mettre à jour l'image et `kubectl apply`
+- [x] `kubectl rollout status` -> déploiement sans coupure observé
+- [x] `kubectl rollout history` -> au moins 2 révisions visibles
+- [x] `kubectl rollout undo` -> retour à l'ancienne version
+- [x] `kubectl describe deployment ...` -> ancienne image confirmée
+
+Bonnes pratiques :
+- éviter `:latest` en production
+- préférer des tags versionnés (`v1.2.0`) ou SHA Git pour tracer précisément la version déployée
