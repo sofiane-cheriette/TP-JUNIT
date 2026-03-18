@@ -559,3 +559,44 @@ Checklist étape 9 :
 - [x] Probes de santé ajoutées au Deployment
 - [x] HPA configuré (`min=2`, `max=8`, `cpu=70%`)
 - [x] Job `deploy` ajouté dans le pipeline CI/CD
+
+### Étape 10 — Récapitulatif (Checklist finale)
+
+Vérification finale avant rendu du TP.
+
+#### Minikube
+- [x] `minikube start` -> cluster démarré (état `Running`)
+- [x] `kubectl get nodes` -> `minikube Ready`
+
+#### Manifests YAML
+- [x] `k8s/configmap.yml` créé avec au moins 3 variables
+- [x] `k8s/secret.yml` créé avec valeurs encodées en base64
+- [x] `k8s/deployment.yml` créé avec `replicas: 3`, image GHCR, `envFrom`
+- [x] `k8s/service.yml` créé en `NodePort` sur le port 80
+
+#### Déploiement
+- [x] `kubectl apply -f k8s/` -> 4 ressources créées/présentes
+- [x] `kubectl get pods` -> `3/3 Running`
+- [x] `kubectl rollout status` -> `successfully rolled out`
+- [x] `minikube service boutique-svc --url` -> application accessible (`HTTP 200`)
+
+#### Self-healing et Scaling
+- [x] `kubectl delete pod <nom>` -> Pod recréé automatiquement
+- [x] `kubectl scale --replicas=5` -> 5 Pods Running
+- [x] `kubectl scale --replicas=2` -> 2 Pods Running
+
+#### Rolling update et Rollback
+- [x] Nouvelle image déployée sans coupure de service observée
+- [x] `kubectl rollout history` -> au moins 2 révisions visibles
+- [x] `kubectl rollout undo` -> retour version précédente confirmé
+
+### Ce qu'il faut retenir
+
+| N° | Concept | Explication |
+|---|---|---|
+| 1 | Deployment | Décrit l'état désiré (réplicas, image). Kubernetes converge automatiquement vers cet état. |
+| 2 | Service | Fournit une IP/DNS stables pour accéder à des Pods éphémères. |
+| 3 | Self-healing | Kubernetes recrée automatiquement les Pods en échec sans intervention manuelle. |
+| 4 | Rolling update | Remplace progressivement les anciens Pods par les nouveaux pour éviter les coupures. |
+| 5 | Rollback | `kubectl rollout undo` permet un retour rapide à la version précédente. |
+| 6 | kubectl apply | Le manifest YAML versionné est la source de vérité de l'infra applicative. |
