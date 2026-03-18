@@ -470,3 +470,44 @@ Checklist étape 7 :
 Bonnes pratiques :
 - éviter `:latest` en production
 - préférer des tags versionnés (`v1.2.0`) ou SHA Git pour tracer précisément la version déployée
+
+### Étape 8 — Déploiement complet en une commande
+
+Objectif : supprimer puis redéployer toutes les ressources Kubernetes d'un coup à partir du dossier `k8s/`.
+
+Préparation :
+- manifest `k8s/deployment.yml` réaligné à `replicas: 3` pour correspondre à la checklist de l'étape
+
+Commandes exécutées :
+
+```bash
+kubectl delete -f k8s/
+kubectl apply -f k8s/
+kubectl rollout status deployment/boutique
+kubectl get all
+minikube service boutique-svc --url
+```
+
+Résultat observé :
+- suppression globale réussie : ConfigMap, Secret, Deployment, Service
+- recréation globale réussie en une commande :
+    - `configmap/boutique-config created`
+    - `secret/boutique-secret created`
+    - `deployment.apps/boutique created`
+    - `service/boutique-svc created`
+- `kubectl get all` :
+    - 3 Pods `Running`
+    - 1 Service `NodePort` (`boutique-svc`)
+    - 1 Deployment `3/3 Available`
+    - 1 ReplicaSet avec `3 desired`
+
+Vérification finale d'accessibilité (refaite avant finalisation) :
+- URL : `http://127.0.0.1:56478`
+- HTTP `200`
+- réponse : `TP-JUNIT running`
+
+Checklist étape 8 :
+- [x] `kubectl delete -f k8s/` -> toutes les ressources supprimées
+- [x] `kubectl apply -f k8s/` -> tout recréé en une commande
+- [x] `kubectl get all` -> 3 Pods Running + 1 Service + 1 Deployment
+- [x] `minikube service boutique-svc --url` -> application accessible
