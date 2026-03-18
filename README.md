@@ -363,3 +363,46 @@ Checklist étape 5 :
 - [x] Supprimer un Pod avec `kubectl delete pod <nom>`
 - [x] Observer le nouveau Pod créé automatiquement en < 10 secondes
 - [x] Confirmer que l'application répond toujours pendant la panne
+
+### Étape 6 — Scaler le Deployment
+
+Objectif : ajuster rapidement le nombre de réplicas, puis conserver un état durable via le manifest.
+
+#### 6.1 — Scaling manuel
+
+Commandes exécutées :
+
+```bash
+kubectl scale deployment boutique --replicas=5
+kubectl get pods -l app=boutique
+kubectl get deployment boutique
+
+kubectl scale deployment boutique --replicas=2
+kubectl get pods -l app=boutique
+kubectl get deployment boutique
+```
+
+Résultat observé :
+- Scale up vers 5 : `READY 5/5`, 5 Pods en `Running`
+- Scale down vers 2 : `READY 2/2`, puis Pods en `Terminating` avant stabilisation
+
+#### 6.2 — Scaling via le manifest (bonne pratique)
+
+Action effectuée :
+- modification de `k8s/deployment.yml` : `replicas: 3` -> `replicas: 4`
+- application du manifest :
+
+```bash
+kubectl apply -f k8s/deployment.yml
+kubectl get pods -l app=boutique
+kubectl get deployment boutique
+```
+
+Résultat observé :
+- convergence vers `READY 4/4`
+- 4 Pods en `Running`
+
+Checklist étape 6 :
+- [x] `kubectl scale deployment boutique --replicas=5` -> 5 Pods Running
+- [x] `kubectl scale deployment boutique --replicas=2` -> 2 Pods Running
+- [x] Modifier `replicas` dans `deployment.yml` -> `kubectl apply` -> 4 Pods Running
