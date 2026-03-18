@@ -196,3 +196,28 @@ Règle de l'étape 0 :
 - [x] `k8s/service.yml` créé
 - [x] `k8s/configmap.yml` créé
 - [x] `k8s/secret.yml` créé
+
+### Étape 1 — Installer et démarrer Minikube
+
+Objectif : disposer d'un cluster Kubernetes local prêt pour les prochaines étapes du TP.
+
+Commandes exécutées :
+
+```bash
+minikube version
+kubectl version --client
+minikube start --driver=docker
+kubectl get nodes
+minikube status
+```
+
+Résultat obtenu :
+- `minikube version` : OK (v1.38.1)
+- `kubectl version --client` : OK (v1.28.2)
+- `minikube start --driver=docker` : OK, cluster démarré
+- `kubectl get nodes` : nœud `minikube` en statut `Ready`
+- `minikube status` : `host/kubelet/apiserver` en `Running`, `kubeconfig` configuré
+
+Checklist étape 1 :
+- [x] `minikube start` démarre sans erreur bloquante
+- [x] `kubectl get nodes` affiche `STATUS = Ready`
