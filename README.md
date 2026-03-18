@@ -221,3 +221,36 @@ Résultat obtenu :
 Checklist étape 1 :
 - [x] `minikube start` démarre sans erreur bloquante
 - [x] `kubectl get nodes` affiche `STATUS = Ready`
+
+### Étape 2 — Créer le ConfigMap et le Secret
+
+Objectif : externaliser la configuration de l'application hors de l'image Docker.
+
+Ressources créées :
+- `k8s/configmap.yml` avec des variables non sensibles
+- `k8s/secret.yml` avec des valeurs sensibles encodées en base64 (valeurs de test)
+
+Commandes exécutées :
+
+```bash
+kubectl apply -f k8s/configmap.yml
+kubectl apply -f k8s/secret.yml
+kubectl get configmap boutique-config
+kubectl get secret boutique-secret
+```
+
+Résultat obtenu :
+- `configmap/boutique-config created`
+- `secret/boutique-secret created`
+- `kubectl get configmap boutique-config` : objet présent (`DATA = 3`)
+- `kubectl get secret boutique-secret` : objet présent (`TYPE = Opaque`, `DATA = 2`)
+
+Checklist étape 2 :
+- [x] Créer `k8s/configmap.yml` avec au moins 3 variables
+- [x] Encoder les valeurs sensibles en base64
+- [x] Créer `k8s/secret.yml` avec `DB_USER` et `DB_PASSWORD`
+- [x] `kubectl get configmap boutique-config` -> l'objet existe
+- [x] `kubectl get secret boutique-secret` -> l'objet existe
+
+Note sécurité :
+- Le fichier `k8s/secret.yml` contient des valeurs de test uniquement (pas de vrais secrets).
