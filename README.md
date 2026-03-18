@@ -162,3 +162,37 @@ git push
 git tag v1.0.0
 git push origin v1.0.0
 ```
+
+## TP — Kubernetes avec Minikube
+
+### Étape 0 — Structure du projet après le TP
+
+Vous ajoutez un dossier `k8s/` à la racine du projet Boutique.
+Tous les manifests Kubernetes vivent dans ce dossier et sont versionnés avec le code.
+
+Structure cible :
+
+```text
+boutique/
+├── .github/workflows/
+├── src/                     (inchangé)
+├── Dockerfile              (inchangé)
+├── pom.xml                 (inchangé)
+├── k8s/                    (NOUVEAU)
+│   ├── deployment.yml      (NOUVEAU)
+│   ├── service.yml         (NOUVEAU)
+│   ├── configmap.yml       (NOUVEAU)
+│   └── secret.yml          (NOUVEAU)
+└── pom.xml
+```
+
+Règle de l'étape 0 :
+- Les fichiers en vert dans l'énoncé sont ceux à créer.
+- Les fichiers existants du projet ne sont pas modifiés.
+
+État dans ce dépôt :
+- [x] Dossier `k8s/` créé
+- [x] `k8s/deployment.yml` créé
+- [x] `k8s/service.yml` créé
+- [x] `k8s/configmap.yml` créé
+- [x] `k8s/secret.yml` créé
