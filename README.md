@@ -294,3 +294,34 @@ Checklist étape 3 :
 - [x] `kubectl rollout status` -> deployment successfully rolled out
 - [x] `kubectl get pods` -> 3/3 pods en Running
 - [x] `kubectl logs <pod>` -> application démarrée sans erreur
+
+### Étape 4 — Exposer l'application avec un Service
+
+Objectif : fournir un point d'accès stable aux Pods via un Service Kubernetes.
+
+Manifest créé :
+- `k8s/service.yml`
+- `type: NodePort`
+- `port: 80` vers `targetPort: 8080`
+- `selector: app: boutique`
+
+Commandes exécutées :
+
+```bash
+kubectl apply -f k8s/service.yml
+kubectl get service boutique-svc
+minikube service boutique-svc --url
+```
+
+Résultat obtenu :
+- `service/boutique-svc created`
+- `kubectl get service boutique-svc` : Service présent en `NodePort`
+- URL Minikube affichée et testée : `http://127.0.0.1:64617`
+- Réponse HTTP OK : `TP-JUNIT running` (status 200)
+
+Checklist étape 4 :
+- [x] Créer `k8s/service.yml` de type `NodePort`
+- [x] `kubectl apply -f k8s/service.yml`
+- [x] `kubectl get service boutique-svc` -> le Service existe
+- [x] `minikube service boutique-svc --url` -> URL affichée
+- [x] Accéder à l'URL -> réponse de l'application
