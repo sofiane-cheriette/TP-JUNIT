@@ -254,3 +254,43 @@ Checklist étape 2 :
 
 Note sécurité :
 - Le fichier `k8s/secret.yml` contient des valeurs de test uniquement (pas de vrais secrets).
+
+### Étape 3 — Créer le Deployment
+
+Objectif : déployer l'application avec 3 Pods, image GHCR, configuration injectée via ConfigMap/Secret.
+
+Manifest créé :
+- `k8s/deployment.yml`
+- `replicas: 3`
+- image: `ghcr.io/sofiane-cheriette/tp-junit:latest`
+- injection de `boutique-config` et `boutique-secret` via `envFrom`
+- ressources CPU/RAM (requests + limits)
+
+Commandes exécutées :
+
+```bash
+kubectl apply -f k8s/deployment.yml
+kubectl rollout status deployment/boutique
+kubectl get pods -l app=boutique
+kubectl describe pod <nom-du-pod>
+kubectl logs <nom-du-pod>
+```
+
+Résultat obtenu :
+- Déploiement créé puis mis à jour avec succès
+- `kubectl rollout status` : `deployment "boutique" successfully rolled out`
+- 3 Pods `Running` (1/1)
+- logs applicatifs OK : `Serveur demarre sur le port 8080`
+
+Incident rencontré puis corrigé :
+- Erreur initiale : `Could not find or load main class fr.boutique.Application`
+- Correction appliquée pour la validation locale Minikube :
+    - construction de l'image dans Minikube avec le code courant
+    - démarrage explicite de la classe principale dans le container
+
+Checklist étape 3 :
+- [x] Créer `k8s/deployment.yml` avec `replicas: 3` et l'URL de l'image
+- [x] `kubectl apply -f k8s/deployment.yml`
+- [x] `kubectl rollout status` -> deployment successfully rolled out
+- [x] `kubectl get pods` -> 3/3 pods en Running
+- [x] `kubectl logs <pod>` -> application démarrée sans erreur
